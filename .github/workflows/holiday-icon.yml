@@ -1,0 +1,20 @@
+name: Update server icon
+
+on:
+  schedule:
+    - cron: "5 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python update_icon.py
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          GUILD_IDS: ${{ secrets.GUILD_IDS }}
+          TIMEZONE: America/Chicago
